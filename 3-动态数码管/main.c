@@ -6,6 +6,7 @@ void Nixie(unsigned char location, number);
 void DelayNms(unsigned int n);
 void DelayNus(unsigned char n);
 
+
 void main()
 {
 	unsigned char i;
