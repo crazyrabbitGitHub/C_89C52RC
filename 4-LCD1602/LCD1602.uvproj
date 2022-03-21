@@ -46,7 +46,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>数码管</OutputName>
+          <OutputName>LCD1602</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -233,7 +233,7 @@
               <RCB>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x10000</Size>
+                <Size>0xffff</Size>
               </RCB>
               <RXB>
                 <Type>0</Type>
@@ -374,7 +374,7 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
+          <GroupName>main</GroupName>
           <Files>
             <File>
               <FileName>STARTUP.A51</FileName>
@@ -386,6 +386,26 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LCD1602</GroupName>
+          <Files>
+            <File>
+              <FileName>LCD1602.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LCD1602.h</FilePath>
+            </File>
+            <File>
+              <FileName>LCD1602.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LCD1602.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Delay</GroupName>
+          <Files>
             <File>
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
@@ -395,16 +415,6 @@
               <FileName>Delay.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Delay.h</FilePath>
-            </File>
-            <File>
-              <FileName>Nixie.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Nixie.c</FilePath>
-            </File>
-            <File>
-              <FileName>Nixie.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Nixie.h</FilePath>
             </File>
           </Files>
         </Group>
