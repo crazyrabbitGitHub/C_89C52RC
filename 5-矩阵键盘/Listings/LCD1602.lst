@@ -1,0 +1,176 @@
+C51 COMPILER V9.60.0.0   LCD1602                                                           03/27/2022 22:52:24 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LCD1602
+OBJECT MODULE PLACED IN .\Objects\LCD1602.obj
+COMPILER INVOKED BY: D:\software\Keil\C51\BIN\C51.EXE lcd1602\LCD1602.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\lcd1602;.\dela
+                    -y) DEBUG OBJECTEXTEND PRINT(.\Listings\LCD1602.lst) TABS(2) OBJECT(.\Objects\LCD1602.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "LCD1602.h"
+   3          #include "MathUtils.h"
+   4          
+   5          char isInited = 0;
+   6          /**
+   7            * 写入命令
+   8            */
+   9          void lcd1602_write_cmd(u8 cmd)
+  10          {
+  11   1        LCD1602_RS = 0;
+  12   1        LCD1602_RW = 0;
+  13   1        LCD1602_E = 0;
+  14   1        LCD1602_DATAPORT = cmd;
+  15   1        DelayNms(1);
+  16   1        LCD1602_E = 1;
+  17   1        DelayNms(1);
+  18   1        LCD1602_E = 0;
+  19   1        
+  20   1      }
+  21          /**
+  22            * 写入字符
+  23            */
+  24          void lcd1602_write_data(u8 dat)
+  25          {
+  26   1        LCD1602_RS = 1;
+  27   1        LCD1602_RW = 0;
+  28   1        LCD1602_E = 0;
+  29   1        LCD1602_DATAPORT = dat;
+  30   1        DelayNms(1);
+  31   1        LCD1602_E = 1;
+  32   1        DelayNms(1);
+  33   1        LCD1602_E = 0;
+  34   1        
+  35   1      }
+  36          /**
+  37            * 初始化
+  38            */
+  39          void lcd1602_init(void)
+  40          {
+  41   1        if(isInited)
+  42   1        {
+  43   2          return;
+  44   2        }
+  45   1        lcd1602_write_cmd(0x38);
+  46   1        lcd1602_write_cmd(0x0C);
+  47   1        lcd1602_write_cmd(0x06);
+  48   1        lcd1602_write_cmd(0x01);
+  49   1        isInited = 1;
+  50   1      }
+  51          
+  52          void lcd1602_show_string(u8 x, u8 y, u8 *str)
+  53          {
+  54   1        lcd1602_init();
+C51 COMPILER V9.60.0.0   LCD1602                                                           03/27/2022 22:52:24 PAGE 2   
+
+  55   1        if(y > 1 | x > 15) return;
+  56   1        if(y < 1)  // 第一行
+  57   1        {
+  58   2          while(*str != '\0')
+  59   2          {
+  60   3          
+  61   3            if(x < 16) {
+  62   4              lcd1602_write_cmd(0x80 + x);
+  63   4            }
+  64   3            else
+  65   3            {
+  66   4              lcd1602_write_cmd(0xB0 + x);
+  67   4            }
+  68   3            lcd1602_write_data(*str);
+  69   3            str++;
+  70   3            x++;
+  71   3          }
+  72   2        }
+  73   1        else       // 第二行
+  74   1        {
+  75   2          while(*str != '\0')
+  76   2          {
+  77   3            if(x < 16)
+  78   3            {
+  79   4              lcd1602_write_cmd(0xC0 + x);
+  80   4            }
+  81   3            else 
+  82   3            {
+  83   4              lcd1602_write_cmd(0x70 + x);
+  84   4            }
+  85   3            lcd1602_write_data(*str);
+  86   3            str++;
+  87   3            x++;
+  88   3          }
+  89   2        }
+  90   1      }
+  91          /**
+  92            * 展示数字
+  93            */
+  94          void lcd1602_show_number(u8 x, u8 y, u8 digit, u8 number)
+  95          {
+  96   1        u8 tempNumber = number;
+  97   1        
+  98   1        lcd1602_init();
+  99   1        while(digit--)
+ 100   1        {
+ 101   2          if(y > 1 | x > 15) return;
+ 102   2          if(y < 1)
+ 103   2          {
+ 104   3            lcd1602_write_cmd(0x80 + x);
+ 105   3          }
+ 106   2          else
+ 107   2          {
+ 108   3            lcd1602_write_cmd(0xC0 + x);
+ 109   3          }
+ 110   2          lcd1602_write_data(tempNumber / intPow(10, digit) + 0x30); 
+ 111   2          if(++x > 15)
+ 112   2          {
+ 113   3            x = 1;
+ 114   3            y++;
+ 115   3          }
+ 116   2          tempNumber = tempNumber % intPow(10, digit);
+C51 COMPILER V9.60.0.0   LCD1602                                                           03/27/2022 22:52:24 PAGE 3   
+
+ 117   2        }
+ 118   1      }
+ 119          /**
+ 120            * 设置为空
+ 121            */
+ 122          void lcd1602_clear_limit(u8 startX, u8 startY, u8 digit)
+ 123          {
+ 124   1        u8 x = startX, y = startY;
+ 125   1        int i = 0;
+ 126   1        
+ 127   1        lcd1602_init();
+ 128   1        
+ 129   1        if(startX > 15 | startY > 1 | digit == 0) return;
+ 130   1        for(; i < digit; i++)
+ 131   1        {
+ 132   2            lcd1602_show_string(x, y, " ");
+ 133   2           if(x++ > 15)
+ 134   2           {
+ 135   3              x = 0;
+ 136   3              y++;
+ 137   3           }
+ 138   2          if(startY > 1) break;
+ 139   2        }
+ 140   1      }
+ 141          
+ 142          /**
+ 143            * 清空屏幕
+ 144            */
+ 145          void lcd1602_clear(void)
+ 146          {
+ 147   1        lcd1602_write_cmd(0x01);
+ 148   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    572    ----
+   CONSTANT SIZE    =      2    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1      17
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

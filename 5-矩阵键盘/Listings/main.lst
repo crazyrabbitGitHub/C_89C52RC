@@ -1,0 +1,107 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              03/28/2022 23:12:25 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\software\Keil\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\lcd1602;.\delay) DEBUG OB
+                    -JECTEXTEND PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "LCD1602.h"
+   3          #include "Delay.h"
+   4          #include "MatrixKey.h"
+   5          #include "MathUtils.h"
+   6          
+   7          void main()
+   8          {
+   9   1        unsigned int password = 836;
+  10   1        unsigned char passwordLen = getIntegerSize(password);
+  11   1        unsigned int inputPassword = 0;
+  12   1        // 3位密码
+  13   1        unsigned char passwordDigit = passwordLen;
+  14   1        unsigned char xAddress = passwordDigit;
+  15   1        unsigned char keyArrLocation = 0;
+  16   1        
+  17   1        lcd1602_show_string(0,0,"Three password:");
+  18   1        while(passwordDigit+1)
+  19   1        {
+  20   2          while(passwordDigit)
+  21   2          {
+  22   3            unsigned char martrixKey =  MatrixKey();
+  23   3            keyArrLocation = xAddress - passwordDigit;
+  24   3            switch(martrixKey)
+  25   3            {
+  26   4              // 密码：1~8
+  27   4              case 1:
+  28   4              case 2:
+  29   4              case 3:
+  30   4              case 4:
+  31   4              case 5:
+  32   4              case 6:
+  33   4              case 7:
+  34   4              case 8:
+  35   4                lcd1602_show_number(keyArrLocation, 1, 1, martrixKey);
+  36   4                inputPassword = inputPassword * 10 + martrixKey;
+  37   4                passwordDigit--;
+  38   4                break;
+  39   4              // 取消:
+  40   4              case 15:
+  41   4                if(keyArrLocation)
+  42   4                {
+  43   5                  passwordDigit++;
+  44   5                  inputPassword /= 10;
+  45   5                  lcd1602_clear_limit(--keyArrLocation, 1, 1);
+  46   5                }
+  47   4                break;
+  48   4              default:{}
+  49   4            }
+  50   3          }
+  51   2          // 操作按钮
+  52   2          switch(MatrixKey())
+  53   2          {
+  54   3            case 15:
+C51 COMPILER V9.60.0.0   MAIN                                                              03/28/2022 23:12:25 PAGE 2   
+
+  55   3              passwordDigit++;
+  56   3              inputPassword /= 10;
+  57   3              lcd1602_clear_limit(keyArrLocation, 1, 1);
+  58   3              break;
+  59   3            case 16:
+  60   3              if(inputPassword == password)
+  61   3              {
+  62   4                lcd1602_clear();
+  63   4                lcd1602_show_string(0,0,"success");
+  64   4                // 退出
+  65   4                passwordDigit--;
+  66   4              }
+  67   3              else{
+  68   4                lcd1602_clear_limit(0,0,16);
+  69   4                lcd1602_show_string(0,0,"failure");
+  70   4                DelayNms(500);
+  71   4                lcd1602_show_string(0,0,"Three password:");
+  72   4              }
+  73   3              break;
+  74   3          }
+  75   2          
+  76   2        }
+  77   1        DelayNms(500);
+  78   1        lcd1602_clear();
+  79   1        lcd1602_show_string(0,0,"progress exit");
+  80   1        while(1);
+  81   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    277    ----
+   CONSTANT SIZE    =     46    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       8
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
