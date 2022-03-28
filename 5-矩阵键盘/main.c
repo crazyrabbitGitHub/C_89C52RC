@@ -20,6 +20,7 @@ void main()
 	lcd1602_show_string(0,0,"Three password:");
 	while(passwordDigit+1)
 	{
+		// 键入密码
 		while(passwordDigit)
 		{
 			unsigned char martrixKey =	MatrixKey();
