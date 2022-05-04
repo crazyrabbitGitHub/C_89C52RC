@@ -1,1 +1,1 @@
-"delay\Delay.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(.\lcd1602;.\delay) DEBUG OBJECTEXTEND PRINT(.\Listings\Delay.lst) TABS (2) OBJECT(.\Objects\Delay.obj)
+"delay\Delay.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(.\lcd1602;.\delay;.\math;.\matrixKey) DEBUG OBJECTEXTEND PRINT(.\Listings\Delay.lst) TABS (2) OBJECT(.\Objects\Delay.obj)

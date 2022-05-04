@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>progress</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
       <uAC6>0</uAC6>
@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\lcd1602;.\delay;.\math;.\matrixKey</IncludePath>
+              <IncludePath>.\delay;.\lcd1602;.\math;.\matrixKey</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -377,24 +377,9 @@
           <GroupName>main</GroupName>
           <Files>
             <File>
-              <FileName>STARTUP.A51</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\STARTUP.A51</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>lcd1602</GroupName>
-          <Files>
-            <File>
-              <FileName>LCD1602.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\lcd1602\LCD1602.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -409,22 +394,52 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>matrix_key</GroupName>
+          <GroupName>lcd1602</GroupName>
+          <Files>
+            <File>
+              <FileName>LCD1602.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lcd1602\LCD1602.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>matrixKey</GroupName>
           <Files>
             <File>
               <FileName>MatrixKey.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\matrixKey\MatrixKey.c</FilePath>
             </File>
+            <File>
+              <FileName>MatrixKey.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\matrixKey\MatrixKey.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>utils</GroupName>
+          <GroupName>util</GroupName>
           <Files>
             <File>
               <FileName>MathUtils.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\math\MathUtils.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>timer</GroupName>
+          <Files>
+            <File>
+              <FileName>Timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\timer\Timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>..\..\..\projects\C_89C52RC\6-定时器\timer\Timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>$TC_ROOT$\..\..\..\projects\C_89C52RC\6-定时器\timer\Timer.h</FilePath>
             </File>
           </Files>
         </Group>

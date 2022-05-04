@@ -1,1 +1,1 @@
-"MathUtils.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(.\lcd1602;.\delay) DEBUG OBJECTEXTEND PRINT(.\Listings\MathUtils.lst) TABS (2) OBJECT(.\Objects\MathUtils.obj)
+"math\MathUtils.c" OPTIMIZE (8,SPEED) BROWSE INCDIR(.\lcd1602;.\delay;.\math;.\matrixKey) DEBUG OBJECTEXTEND PRINT(.\Listings\MathUtils.lst) TABS (2) OBJECT(.\Objects\MathUtils.obj)

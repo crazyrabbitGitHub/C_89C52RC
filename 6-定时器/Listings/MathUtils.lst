@@ -1,9 +1,9 @@
-C51 COMPILER V9.60.0.0   MATHUTILS                                                         03/29/2022 21:43:14 PAGE 1   
+C51 COMPILER V9.60.0.0   MATHUTILS                                                         05/04/2022 14:10:47 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MATHUTILS
 OBJECT MODULE PLACED IN .\Objects\MathUtils.obj
-COMPILER INVOKED BY: D:\software\Keil\C51\BIN\C51.EXE math\MathUtils.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\lcd1602;.\delay
+COMPILER INVOKED BY: D:\software\Keil\C51\BIN\C51.EXE math\MathUtils.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\delay;.\lcd1602
                     -;.\math;.\matrixKey) DEBUG OBJECTEXTEND PRINT(.\Listings\MathUtils.lst) TABS(2) OBJECT(.\Objects\MathUtils.obj)
 
 line level    source
